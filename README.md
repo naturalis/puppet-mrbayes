@@ -36,6 +36,13 @@ mrbayes binary with mpi support, using beagle.
 Binary, compiled from source mb in /opt/mrbayes_<version>/src with symlink in /usr/bin
 Beagle libraries in /opt/beagle-lib compiled and installed in /usr/local/includes
 
+Usage example with hymfossil.nex demo file:
+```
+mpirun -np 8 mb /opt/mrbayes_3.2.2/examples/hymfossil.nex > ~/log.txt
+```
+results of run can be found in ~/log.txt
+
+
 
 Limitations
 -------------
