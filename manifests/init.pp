@@ -84,4 +84,3 @@ class mrbayes(
     target => "/opt/mrbayes_${version}/src/mb",
   }
 }
-}
