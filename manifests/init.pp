@@ -72,7 +72,7 @@ class mrbayes(
   }
 
   exec { 'compile_mrbayes':
-    command     => "/usr/bin/autoconf && ./configure --enable-mpi=yes && /usr/bin/make",
+    command     => "/usr/bin/autoconf && ./configure --enable-mpi=yes && /usr/bin/make && ldconfig",
     environment => ["LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH"],
     cwd         => "/opt/mrbayes_${version}/src",
     unless      => "/usr/bin/test -f /opt/mrbayes_${version}/src/mb",
@@ -83,5 +83,5 @@ class mrbayes(
     ensure => 'link',
     target => "/opt/mrbayes_${version}/src/mb",
   }
-
+}
 }
