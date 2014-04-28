@@ -37,11 +37,13 @@
 #
 class mrbayes(
   $version          = '3.2.2',
-  $packages         = ['build-essential','autoconf','libmpich2-dev','mpich2','subversion','libtool','pkg-config','openjdk-6-jdk'] 
+  $exabayesversion  = '1.2.1',
+  $packages         = ['build-essential','autoconf','openmpi-bin','libopenmpi-dev','libmpich2-dev','mpich2','subversion','libtool','pkg-config','openjdk-6-jdk'] 
 )
 {
   $downloadURL  = "http://sourceforge.net/projects/mrbayes/files/mrbayes/${version}/mrbayes-${version}.tar.gz/download"
-
+  $downloadExabayesURL = "http://sco.h-its.org/exelixis/material/exabayes/${exabayesversion}/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz"
+  
   package { $packages:
     ensure      => installed
   }
@@ -77,6 +79,30 @@ class mrbayes(
     cwd         => "/opt/mrbayes_${version}/src",
     unless      => "/usr/bin/test -f /opt/mrbayes_${version}/src/mb",
     require     => [Package[$packages], Exec['configure_and_make_beagle']]
+  }
+
+  exec { 'download_exabayes':
+    command     => "/usr/bin/wget ${downloadExabayesURL} -O /opt/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz",
+    unless      => "/usr/bin/test -f /opt/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz",
+  }
+
+  exec { 'unpack_exabayes':
+    command     => "/bin/tar -xzvf /opt/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz -C /opt",
+    unless      => "/usr/bin/test -d /opt/exabayes-${exabayesversion}",
+    require     => Exec['download_exabayes']
+  }
+
+#  exec { 'compile_exabayes':
+#    command     => "/opt/exabayes-${exabayesversion}/build.sh --enable-mpi CC=mpicc CXX=mpicxx",
+#    cwd         => "/opt/exabayes-${exabayesversion}",
+#    unless      => "/usr/bin/test -f /opt/exabayes-${exabayesversion}/bin/exabayes",
+#    require     => [Package[$packages]]
+#  }
+
+
+  file { '/usr/bin/exabayes':
+    ensure => 'link',
+    target => "/opt/exabayes-${exabayesversion}/bin/bin/exabayes",
   }
 
   file { '/usr/bin/mb':
