@@ -92,14 +92,6 @@ class mrbayes(
     require     => Exec['download_exabayes']
   }
 
-#  exec { 'compile_exabayes':
-#    command     => "/opt/exabayes-${exabayesversion}/build.sh --enable-mpi CC=mpicc CXX=mpicxx",
-#    cwd         => "/opt/exabayes-${exabayesversion}",
-#    unless      => "/usr/bin/test -f /opt/exabayes-${exabayesversion}/bin/exabayes",
-#    require     => [Package[$packages]]
-#  }
-
-
   file { '/usr/bin/exabayes':
     ensure => 'link',
     target => "/opt/exabayes-${exabayesversion}/bin/bin/exabayes",
