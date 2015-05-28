@@ -81,9 +81,9 @@ class mrbayes(
   }
 
 # fix libmpi libraries for exabayes 2 of 2
-  file { '/usr/lib/libmpi_so.0':
+  file { '/usr/lib/libmpi.so.0':
     ensure => 'link',
-    target => '/usr/lib/libmpi_so.1',
+    target => '/usr/lib/libmpi.so.1',
   }
 
 # create link to mrbayes binary
