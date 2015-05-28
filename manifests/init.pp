@@ -36,8 +36,8 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class mrbayes(
-  $version          = '3.2.2',
-  $exabayesversion  = '1.2.1',
+  $version          = '3.2.5',
+  $exabayesversion  = '1.4.1',
   $packages         = ['build-essential','autoconf','openmpi-bin','libopenmpi-dev','libmpich2-dev','mpich2','subversion','libtool','pkg-config','openjdk-6-jdk'] 
 )
 {
