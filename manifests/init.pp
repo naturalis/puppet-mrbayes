@@ -41,8 +41,8 @@ class mrbayes(
 
 # Unpack mrbayes source files
   exec { 'unpack_mrbayes':
-    command     => "/bin/tar -xzvf /opt/mrbayes-${version}.tar.gz -C /opt/mrbayes-${version}/",
-    unless      => "/usr/bin/test -d /opt/mrbayes-${version}",
+    command     => "/bin/tar -xzvf /opt/mrbayes-${version}.tar.gz -C /opt/",
+    unless      => "/usr/bin/test -d /opt/mrbayes_${version}",
     require     => Exec['download_mrbayes']
   }
 
@@ -50,8 +50,8 @@ class mrbayes(
   exec { 'compile_mrbayes':
     command     => '/usr/bin/autoconf && ./configure --enable-mpi=yes && /usr/bin/make && ldconfig',
     environment => ["LD_LIBRARY_PATH=$HOME/lib:$LD_LIBRARY_PATH"],
-    cwd         => "/opt/mrbayes-${version}/src",
-    unless      => "/usr/bin/test -f /opt/mrbayes-${version}/src/mb",
+    cwd         => "/opt/mrbayes_${version}/src",
+    unless      => "/usr/bin/test -f /opt/mrbayes_${version}/src/mb",
     require     => [Package[$packages], Exec['configure_and_make_beagle']]
   }
 
@@ -89,6 +89,6 @@ class mrbayes(
 # create link to mrbayes binary
   file { '/usr/bin/mb':
     ensure => 'link',
-    target => "/opt/mrbayes-${version}/src/mb",
+    target => "/opt/mrbayes_${version}/src/mb",
   }
 }
