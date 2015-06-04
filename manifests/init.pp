@@ -39,9 +39,9 @@ class mrbayes(
     unless      => "/usr/bin/test -f /opt/mrbayes-${version}.tar.gz",
   }
 
-# Create directory and Unpack mrbayes source files
+# Unpack mrbayes source files
   exec { 'unpack_mrbayes':
-    command     => "/bin/mkdir /opt/mrbayes-${version} && /bin/tar -xzvf /opt/mrbayes-${version}.tar.gz -C /opt/mrbayes-${version}/",
+    command     => "/bin/tar -xzvf /opt/mrbayes-${version}.tar.gz -C /opt/mrbayes-${version}/",
     unless      => "/usr/bin/test -d /opt/mrbayes-${version}",
     require     => Exec['download_mrbayes']
   }
