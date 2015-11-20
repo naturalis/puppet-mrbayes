@@ -10,7 +10,8 @@ class mrbayes(
 
 # Set download locations
   $downloadURL  = "http://sourceforge.net/projects/mrbayes/files/mrbayes/${version}/mrbayes-${version}.tar.gz/download"
-  $downloadExabayesURL = "http://sco.h-its.org/exelixis/material/exabayes/${exabayesversion}/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz"
+  $downloadExabayesURL = "http://sco.h-its.org/exelixis/material/exabayes/${exabayesversion}/exabayes-${exabayesversion}-linux-openmpi-sse.tar.gz"
+  #TEMP OLD URL$downloadExabayesURL = "http://sco.h-its.org/exelixis/material/exabayes/${exabayesversion}/exabayes-${exabayesversion}-linux-openmpi-avx.tar.gz"
 
 # Install all packages
   package { $packages:
